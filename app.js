@@ -1,4 +1,7 @@
+const fs = require('fs');
 const inquirer = require('inquirer');
+const generatePage = require('./src/page-template.js');
+
 
 const promptUser = () => {
     return inquirer.prompt([
@@ -54,16 +57,16 @@ const promptUser = () => {
 
 const promptProject = portfolioData => {
 
-    if (!portfolioData.projects) {
-        portfolioData.projects = [];
-    };
+  
 
     console.log(`
     =================
     Add a New Project
     =================
     `);
-
+    if (!portfolioData.projects) {
+        portfolioData.projects = [];
+    };
     return inquirer.prompt([
 
         {
@@ -130,18 +133,16 @@ promptUser()
     .then(promptProject)
     .then(portfolioData => {
         console.log(portfolioData)
-    })
-    .then(projectData => {
-        portfolioData.projects.push(projectData);
-        if (projectData.confirmAddProject) {
-            return promptProject(portfolioData);
-        } else {
-            return portfolioData;
-        }
     });
+    // .then(projectData => {
+    //     portfolioData.projects.push(projectData);
+    //     if (projectData.confirmAddProject) {
+    //         return promptProject(portfolioData);
+    //     } else {
+    //         return portfolioData;
+    //     }
+    // });
 
-// const fs = require('fs');
-// const generatePage = require('./src/page-template.js');
 
 // // const profileDataArgs = process.argv.slice(2);
 
